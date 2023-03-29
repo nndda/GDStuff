@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnlpifplva5gj"]
+
+[ext_resource type="Script" path="res://Text to Dialogue/txt2dlg.gd" id="1_i14uw"]
+
+[node name="demo" type="Node"]
+script = ExtResource("1_i14uw")
+dialogue_file = "res://Text to Dialogue/dialogue_demo.txt"
+
+[connection signal="ready" from="." to="." method="_on_ready"]

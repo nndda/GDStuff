@@ -1,0 +1,12 @@
+
+{_}
+	...
+
+{Hero}
+	Worry not {Player}! for I have come to the rescue!
+
+{Player}
+	Oh my god! its {Hero} the hero
+
+{Villain}
+	Hahaha, at last we have finally meet each other, {Hero}
