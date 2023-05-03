@@ -1,12 +1,12 @@
 
-{_}
-	...
+chr_name    -expression     attribute=value     function()
+    dialogue text/body
 
-{Hero}
-	Worry not {Player}! for I have come to the rescue!
+Hero
+    Worry not {Player}! for I have come to the rescue!
 
-{Player}
-	Oh my god! its {Hero} the hero
+Player
+    Oh my god! its {Hero} the hero.
 
-{Villain}
-	Hahaha, at last we have finally meet each other, {Hero}
+Villain
+    Hahaha, at last we have finally meet each other, {Hero}

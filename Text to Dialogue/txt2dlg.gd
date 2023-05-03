@@ -1,48 +1,73 @@
 extends Node
 
+#--------------------------------------------
+#   this script convert plain *.txt file
+#   to Array[Dictionary].
+#   so that it can be iterated.
+#--------------------------------------------
 
+var characters  := {
+    Hero        = "John",
+    Villain     = "Jeff",
+    Player      = "Player_Name",
+    "_" = "" }
 
-#	this script convert plain *.txt file
-#	to PackedStringArray.
-#	so that it can be iterated.
+func txt2dlg(
+    dialogue_chr : Dictionary,
+    dialogue_file : String ) -> Array[Dictionary]:
 
+#   Set structure:
+#   Dialogue sets: Array[Dictionary]
+#   [ set1, set2, set3, set4 ]
+#
+#   Set:
+#   {   data                = {
+#           chr_name        : String,
+#           expression      : String,
+#           attributes      : Dictionary,
+#           function_calls  : PackedStringArray }
+#       dialogue        : String
+#   }
 
+    var output : Array[Dictionary] = []
 
-var characters = {
-	Hero		= "John",
-	Villain		= "Jeff",
-	Player		= "Player_Name",
-	"_" = "" }
+    var dlg_raw = FileAccess.get_file_as_string( dialogue_file ).split( "\n", false )
 
-@export_file( "*.txt" )
-var dialogue_file	: String
-var dialogue_set	: Array[ PackedStringArray ]
+    for n in dlg_raw.size():
+        if n % 2 == 0:
 
+            var dlg_set         := {}
+            var data            := {
+                chr_name        = "",
+                expression      = "",
+                attributes      = {},
+                function_calls  = [] }
+            var dialogue        := ""
 
-func txt2dlg() -> void:
+            for d in dlg_raw[n].split( " ", false ):
 
-	var dialogue_set_raw : PackedStringArray =\
-		FileAccess.get_file_as_string( dialogue_file ).split( "\n{" )
+                if d.begins_with("-"):
+                    data.expression = d.right(-1)
 
-	for l in dialogue_set_raw.size():
+                elif d.ends_with("()"):
+                    data.function_calls.append(d.left(-2))
 
-		var line_raw	: String =\
-			dialogue_set_raw[ l ]
+                elif d.contains("="):
+                    var attr := d.split( "=", false )
+                    for a in attr.size() * .5:
+                        data.attributes[ attr[a] ] = attr[a+1]
 
-		var character	: String =\
-			line_raw.left( line_raw.find( "\n\t" ) )
+                else:
+                    data.chr_name = ("{"+d+"}").format(dialogue_chr)
 
-		var dialogue	: String =\
-			line_raw.trim_prefix( character ).strip_escapes()
+            dialogue            = dlg_raw[n+1].format(dialogue_chr)
+            dlg_set["data"]     = data
+            dlg_set["dialogue"] = dialogue
 
-		dialogue_set.append( PackedStringArray( [
-			( "{" + character )	.format( characters ),
-			dialogue			.format( characters )
-			] ) )
+            output.append(dlg_set)
 
-	dialogue_set.remove_at( 0 ) # idk y :\
+    for i in output: print(i)
 
-	for d in dialogue_set: print( d[ 0 ] + "\n\t" + d[ 1 ] )
+    return output
 
-
-func _on_ready(): txt2dlg()
+func _on_ready(): txt2dlg( characters, "res://Text to Dialogue/dialogue_demo.txt" )
