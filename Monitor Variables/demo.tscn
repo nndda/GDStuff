@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgja8vsxbfjp4"]
+
+[ext_resource type="Script" path="res://Monitor Variables/demo.gd" id="1_8nhg6"]
+[ext_resource type="PackedScene" uid="uid://7cmn6m3vvh8j" path="res://Monitor Variables/MonitorVariables.tscn" id="1_l5h8d"]
+
+[node name="demo" type="Node2D"]
+script = ExtResource("1_8nhg6")
+
+[node name="MonitorVariables" parent="." instance=ExtResource("1_l5h8d")]
+
+[node name="List" parent="MonitorVariables" index="0"]
+offset_right = 832.0
+offset_bottom = 448.0
+
+[editable path="MonitorVariables"]

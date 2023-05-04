@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://7cmn6m3vvh8j"]
+
+[ext_resource type="Script" path="res://Monitor Variables/MonitorVariables.gd" id="1_mtox4"]
+
+[node name="MonitorVariables" type="CanvasLayer"]
+layer = 20
+script = ExtResource("1_mtox4")
+
+[node name="List" type="VBoxContainer" parent="."]
+offset_right = 283.0
+offset_bottom = 64.0
+
+[node name="0" type="HBoxContainer" parent="List"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="List/0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Variable"
+
+[node name="Value" type="Label" parent="List/0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Value"
