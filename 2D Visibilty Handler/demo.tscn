@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://6s0t27rs6vtt"]
+
+[ext_resource type="Script" path="res://2D Visibilty Handler/demo.gd" id="1_2kitm"]
+[ext_resource type="PackedScene" uid="uid://bti8o35kwtnw4" path="res://2D Visibilty Handler/VisibilityHandler2D.tscn" id="1_8o0lp"]
+
+[sub_resource type="Gradient" id="Gradient_0gpmr"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rjxyf"]
+gradient = SubResource("Gradient_0gpmr")
+width = 128
+height = 128
+fill_from = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_tv2fs"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_huk76"]
+gradient = SubResource("Gradient_tv2fs")
+width = 32
+height = 32
+
+[node name="demo" type="Node2D"]
+script = ExtResource("1_2kitm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(128, 128)
+texture = SubResource("GradientTexture2D_rjxyf")
+
+[node name="Visibility" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(-48, -48)
+texture = SubResource("GradientTexture2D_huk76")
+
+[node name="VisibilityHandler2D" parent="Sprite2D/Visibility" instance=ExtResource("1_8o0lp")]
+root_node = NodePath("../..")
+
+[node name="Visibility2" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(48, 48)
+texture = SubResource("GradientTexture2D_huk76")
+
+[node name="VisibilityHandler2D" parent="Sprite2D/Visibility2" instance=ExtResource("1_8o0lp")]
+root_node = NodePath("../..")

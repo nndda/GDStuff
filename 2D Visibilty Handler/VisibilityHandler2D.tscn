@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bti8o35kwtnw4"]
+
+[ext_resource type="Script" path="res://2D Visibilty Handler/VisibilityHandler2D.gd" id="1_2p02g"]
+
+[node name="VisibilityHandler2D" type="ReferenceRect"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+border_width = 2.0
+script = ExtResource("1_2p02g")
