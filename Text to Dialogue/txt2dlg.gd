@@ -14,7 +14,9 @@ var characters  := {
 
 func txt2dlg(
     dialogue_chr : Dictionary,
-    dialogue_file : String ) -> Array[Dictionary]:
+    dialogue_file : String,
+    remove_empty_attr : bool = true
+    ) -> Array[Dictionary]:
 
 #   Set structure:
 #   Dialogue sets: Array[Dictionary]
@@ -55,10 +57,14 @@ func txt2dlg(
                 elif d.contains("="):
                     var attr := d.split( "=", false )
                     for a in attr.size() * .5:
-                        data.attributes[ attr[a] ] = attr[a+1]
+                        data.attributes[attr[a]] = attr[a+1]
 
                 else:
                     data.chr_name = ("{"+d+"}").format(dialogue_chr)
+
+            if remove_empty_attr:
+                if data.attributes.is_empty()       : data.erase("attributes")
+                if data.function_calls.is_empty()   : data.erase("function_calls")
 
             dialogue            = dlg_raw[n+1].format(dialogue_chr)
             dlg_set["data"]     = data
