@@ -1,4 +1,10 @@
 
+
+#   This is a sample
+#   of a multiline comment
+#   :)
+
+
 chr_name    -expression     attribute=value     function()
     dialogue text/body
 

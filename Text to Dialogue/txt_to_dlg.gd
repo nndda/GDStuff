@@ -12,10 +12,10 @@ var characters  := {
     Player      = "Player_Name",
     "_" = "" }
 
-func txt2dlg(
-    dialogue_chr : Dictionary,
-    dialogue_file : String,
-    remove_empty_attr : bool = true
+func txt_to_dlg(
+    dialogue_file       : String, 
+    dialogue_chr        : Dictionary = {},
+    remove_empty_attr   : bool = true
     ) -> Array[Dictionary]:
 
 #   Set structure:
@@ -31,9 +31,14 @@ func txt2dlg(
 #       dialogue        : String
 #   }
 
-    var output : Array[Dictionary] = []
+    var output  : Array[Dictionary] = []
+    var dlg_raw : PackedStringArray = []
 
-    var dlg_raw = FileAccess.get_file_as_string( dialogue_file ).split( "\n", false )
+    #   Filter out comments
+    for n in FileAccess.get_file_as_string(
+            dialogue_file ).split( "\n", false ):
+        if !n.begins_with("#") and !n.is_empty():
+            dlg_raw.append(n)
 
     for n in dlg_raw.size():
         if n % 2 == 0:
@@ -68,7 +73,7 @@ func txt2dlg(
 
             dialogue            = dlg_raw[n+1].format(dialogue_chr)
             dlg_set["data"]     = data
-            dlg_set["dialogue"] = dialogue
+            dlg_set["dialogue"] = dialogue.trim_prefix("    ")
 
             output.append(dlg_set)
 
@@ -76,4 +81,5 @@ func txt2dlg(
 
     return output
 
-func _on_ready(): txt2dlg( characters, "res://Text to Dialogue/dialogue_demo.txt" )
+func _on_ready():
+    txt_to_dlg( "res://Text to Dialogue/dialogue_demo.txt", characters )
