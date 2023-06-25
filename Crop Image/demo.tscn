@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc5ouq1ssyja5"]
+
+[ext_resource type="Script" path="res://Crop Image/crop_image.gd" id="1_rwdyf"]
+[ext_resource type="Texture2D" uid="uid://mmkscn1n6afq" path="res://icon.svg" id="2_o313c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygh1h"]
+atlas = ExtResource("2_o313c")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psals"]
+atlas = ExtResource("2_o313c")
+region = Rect2(64, 64, 64, 64)
+
+[node name="demo" type="Node2D"]
+script = ExtResource("1_rwdyf")
+
+[node name="target_image" type="Node" parent="."]
+
+[node name="top-left" type="Sprite2D" parent="target_image"]
+position = Vector2(-32, -32)
+texture = SubResource("AtlasTexture_ygh1h")
+
+[node name="bottom-right" type="Sprite2D" parent="target_image"]
+position = Vector2(32, 32)
+texture = SubResource("AtlasTexture_psals")
